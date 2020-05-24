@@ -1,0 +1,25 @@
+{block content}
+<h1 n:block=title class="header center red-text thin-font">Projects</h1>
+
+{foreach $projects as $project}
+    <div class="card grey darken-4 z-depth-2">
+        <div class="card-content grey-text">
+            <span class="card-title"><a class="red-text" n:href="Projects:view $project['id']">{$project['title']}</a></span>
+
+            {$project['content']}
+
+            {foreach explode(";", $project['langs']) as $lang}
+                <span class="new badge red" data-badge-caption="{$lang}"></span>
+            {/foreach}
+        </div>
+
+        {ifset $project['urls']}
+            <div class="card-action">
+                {foreach explode(";", $project['urls']) as $url}
+                    {var $url_data = explode("=", $url)}
+                    <a class="red-text" href="{$url_data[1]}">{$url_data[0]}</a>
+                {/foreach}
+            </div>
+        {/ifset}
+    </div>
+{/foreach}
